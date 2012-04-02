@@ -1,0 +1,60 @@
+<div id='main_content'>
+<h2 class='grid_12'> Encaminhar</h2>
+   <div class="clean"/>
+   <center>
+      <a href="javascript:history.back()">Voltar</a>
+   </center>
+   <br/>
+
+   <% form_for @chamado do |f| -%>
+      <div class="grid_6">
+         <div class="box">
+            <div class="header">
+               <img width="16" height="16" alt="" src="/img/icons/packs/fugue/16x16/ui-text-field-format.png"/>
+               <h3>Atendentes</h3> <span/>
+            </div>
+            <%= hidden_field_tag 'chamado[id]', @chamado.id %>
+            <div class="content with_actions">
+               <div class="section _100" style='margin: 30px 0'>
+                  <%= label_tag 'Encaminhar para'  %>
+                  <div>
+                      <%= f.select :atendente_id, @atendentes %>
+                  </div>
+               </div>
+            </div>
+            <div class="actions">
+               <div class="actions-right">
+                  <%= submit_tag "Confirmar" %>
+               </div>
+            </div>
+         </div>
+      </div>
+   <% end -%>
+
+   <% form_for @chamado do |f| -%>
+      <div class="grid_6">
+         <div class="box">
+            <div class="header">
+               <img width="16" height="16" alt="" src="/img/icons/packs/fugue/16x16/ui-text-field-format.png"/>
+               <h3>Grupos</h3> <span/>
+            </div>
+            <%= hidden_field_tag 'chamado[id]', @chamado.id %>
+            <div class="content with_actions">
+               <div class="section _100" style='margin: 30px 0'>
+                  <%= label_tag 'Encaminhar para'  %>
+                  <div>
+                      <%= f.select :grupo_id, @grupos %>
+                  </div>
+               </div>
+            </div>
+            <div class="actions">
+               <div class="actions-right">
+                  <%= submit_tag "Confirmar" %>
+               </div>
+            </div>
+         </div>
+      </div>
+   <% end -%>
+
+</div>
+</div>

@@ -1,0 +1,2 @@
+module IndicadoresRealHelper
+end

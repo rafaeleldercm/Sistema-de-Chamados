@@ -1,0 +1,13 @@
+<p>
+  <b>Nome:</b>
+  <%=h @grupo.nome %>
+</p>
+
+<p>
+  <b>Master:</b>
+  <%=h @grupo.master %>
+</p>
+
+
+<%= link_to 'Editar', edit_grupo_path(@grupo) %> |
+<%= link_to 'Voltar', grupos_path %>

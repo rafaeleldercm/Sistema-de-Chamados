@@ -1,0 +1,56 @@
+<div id="main_content">
+   <h2 class="grid_12">Listagem de Grupos</h2>
+   <div class="clear"></div>
+
+   <div role="main" class="container_12" id="content-wrapper">
+      <div id="main_content">
+         <div style='margin: 15px '>
+            <div style='float: left'>
+               <%= link_to 'Novo Grupo', new_grupo_path %>
+            </div>
+            <div style='float: right'>
+               <%= will_paginate_custom @grupos if @grupos %>
+            </div>
+        </div>
+
+        <div class="grid_12">
+           <div class="box">
+              <div class="header">
+                  <%= image_tag( "#{$ICO1_PATH}/application-detail.png") %>
+                  <h3>Grupos</h3><span></span>
+              </div>
+              <div class="content" style='padding: 0'>
+                 <table id="table-example" class="table" >
+                    <thead>
+                       <tr>
+                          <th>Grupo</th>
+                          <th>Usuários</th>
+                          <th>Sistemas</th>
+                          <th>Atendente</th>
+                          <th colspan='2'> Ações  </th>
+                       </tr>
+                    </thead>
+                 <tbody>
+                    <% @grupos.each do |g| %>
+                       <tr class="gradeX">
+                          <td> <%=h g.nome %></td>
+                          <td>[<%=h g.usuarios.collect {|u| u.name }.join(',')                          unless g.usuarios.blank? %>]</td>
+                          <td>[<%=h g.sistemas.collect {|s| s.nome }.join(',')                          unless g.sistemas.blank? %>]</td>
+                          <td width=40> <%= check_box_tag :atendente, nil, g.atendente, :disabled => true %></td>
+                          <td> <%= link_to image_tag("#{$ICO1_PATH}/edit-signiture.png", :title => 'Editar'), edit_grupo_path(g) %></td>
+                          <td> <%= link_to image_tag("#{$ICO1_PATH}/user-silhouette.png", :title => 'Usuários'), :action => :usuarios, :id => g.id %></td>
+                          <td> <%= link_to image_tag("#{$ICO1_PATH}/application-text-image.png", :title => 'Sistemas'), :action => :sistemas,:id => g.id%></td>
+                       </tr>
+                    <% end %>
+                </tbody>
+                </table>
+             </div> <!-- End of .content -->
+             <div class="clear"></div>
+          </div> <!-- End of .box -->
+       </div> <!-- End of .grid_12 -->
+       <br/>
+    </div> <!-- End of #main_content -->
+    <div class="clean"></div>
+  </div> <!-- End of #content-wrapper -->
+</div>
+

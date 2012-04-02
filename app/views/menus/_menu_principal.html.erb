@@ -1,0 +1,23 @@
+
+<li class="<%= 'current' if controller_name == 'sessions' %>">
+   <a href="/"> <img src="/img/icons/25x25/dark/bended-arrow-up.png" width=25 height=25 alt=""> Principal </a>
+   <ul>
+      <li>Bem Vindo, <%= @current_usuario.name %>.</li>
+   </ul>
+</li>
+
+
+<li class="<%= 'current' if controller_name == 'chamados' and ['new','show','meus_chamados'].include? action_name %>">
+   <a href="#"> <img src="/img/icons/25x25/dark/archive.png" width=25 height=25 alt=""> Chamados</a>
+   <ul>
+      <li <%= 'class="negrito"' if controller_name == 'chamados' and (action_name == 'meus_chamados' or action_name == 'show') %>>
+          <%= link_to 'Meus Chamados', :controller => 'chamados', :action => :meus_chamados %>  </li>
+
+      <li <%= 'class="negrito"' if controller_name == 'chamados' and action_name == 'new' %>>
+          <%= link_to 'Abrir Chamados', :controller => 'chamados', :action => :new %>  </li>
+   </ul>
+</li>
+
+<li class="<%= 'current' if controller_name == 'usuarios' and ['edit','update'].include? action_name and @current_usuario == @usuario %>">
+   <a href="/usuarios/edit/1"> <img src="/img/icons/25x25/dark/admin-user.png" width=25 height=25 alt=""> Minha Conta </a>
+</li>

@@ -1,0 +1,79 @@
+package_assets: on             # (on, off, always)
+embed_assets: on               # (on, off, datauri)
+compress_assets: on            # (on, off)
+gzip_assets: on                # (on, off)
+javascript_compressor: closure # (yui, closure)
+
+
+javascripts:
+  default:
+     - public/javascripts/plugins.js
+     - public/javascripts/mylibs/jquery.ba-resize.js
+     - public/javascripts/mylibs/jquery.easing.1.3.js
+     - public/javascripts/mylibs/jquery.validate.js
+     - public/javascripts/mylibs/jquery.checkbox.js
+     - public/javascripts/mylibs/jquery.fileinput.js
+     - public/javascripts/mylibs/jquery.placeholder.js
+     - public/javascripts/mylibs/jquery.miniColors.js
+     - public/javascripts/mylibs/jquery.text-overflow.js
+     - public/javascripts/mylibs/ui.datepicker-pt-BR.js
+     - public/javascripts/mylibs/jquery.ui.timepicker.js
+     - public/javascripts/mylibs/jquery.ui.touch-punch.js
+     - public/javascripts/mylibs/jquery.chosen.js
+     - public/javascripts/mylibs/jquery.validate.js
+     - public/javascripts/mylibs/jquery.maskedinput.js
+     - public/javascripts/mascaras.js
+     - public/javascripts/script.js
+
+  addjs:
+     - public/javascripts/plugins.js
+     - public/javascripts/mylibs/jquery.ba-resize.js
+     - public/javascripts/mylibs/jquery.easing.1.3.js
+     - public/javascripts/mylibs/jquery.checkbox.js
+     - public/javascripts/mylibs/jquery.placeholder.js
+     - public/javascripts/mylibs/jquery.miniColors.js
+     - public/javascripts/mylibs/jquery.fileinput.js
+     - public/javascripts/mylibs/ui.datepicker-pt-BR.js
+     - public/javascripts/mylibs/jquery.ui.timepicker.js
+     - public/javascripts/mylibs/jquery.ui.touch-punch.js
+     - public/javascripts/mylibs/jquery.validate.js
+     - public/javascripts/mylibs/jquery.maskedinput.js
+     - public/javascripts/mascaras.js
+     - public/javascripts/jquery.observe_field.js
+     - public/javascripts/funcoes.js
+     - public/javascripts/script.js
+
+
+stylesheets:
+  login:
+    - public/stylesheets/h5bp/normalize.css
+    - public/stylesheets/960gs/fluid.css
+    - public/stylesheets/h5bp/non-semantic.helper.classes.css
+    - public/stylesheets/h5bp/print.styles.css
+    - public/stylesheets/special-page.css
+    - public/stylesheets/sprites.css
+    - public/stylesheets/typographics.css
+    - public/stylesheets/content.css
+    - public/stylesheets/sprite.forms.css
+    - public/stylesheets/ie.fixes.css
+    - public/stylesheets/footer.css
+
+  default:
+    - public/stylesheets/h5bp/normalize.css
+    - public/stylesheets/960gs/fluid.css
+    - public/stylesheets/h5bp/non-semantic.helper.classes.css
+    - public/stylesheets/h5bp/print.styles.css
+    - public/stylesheets/sprites.css
+    - public/stylesheets/header.css 
+    - public/stylesheets/navigation.css
+    - public/stylesheets/sidebar.css
+    - public/stylesheets/footer.css
+    - public/stylesheets/typographics.css
+    - public/stylesheets/ie.fixes.css
+    - public/stylesheets/sprite.forms.css
+    - public/stylesheets/sprite.tables.css
+    - public/stylesheets/icons.css
+    - public/stylesheets/content.css 
+    - public/stylesheets/external/jquery-ui-1.8.16.custom.css
+    - public/stylesheets/custom.css
+

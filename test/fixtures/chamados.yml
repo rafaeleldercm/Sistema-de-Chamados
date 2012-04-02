@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  usuario: 
+  sistema: 
+  tipo_chamado: 
+  atendente_id: 1
+
+two:
+  usuario: 
+  sistema: 
+  tipo_chamado: 
+  atendente_id: 1

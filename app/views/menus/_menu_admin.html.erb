@@ -1,0 +1,25 @@
+
+
+<li class="<%= 'current' if ['session','grupos','tipo_chamados','sistemas', 'usuarios'].include? controller_name  %>">
+   <a href="#">
+      <img src="/img/icons/25x25/dark/locked.png" width=25 height=25 alt="">
+      Administrar
+   </a>
+   <ul>
+      <li <%= 'class="negrito"' if controller_name == 'usuarios' %>>
+          <%= link_to 'Usuarios', :controller => 'usuarios' %></a>
+      </li>		
+      <li <%= 'class="negrito"' if controller_name == 'grupos' %>>
+          <%= link_to 'Grupos', :controller => 'grupos' %></a>
+      </li>		
+      <li <%= 'class="negrito"' if controller_name == 'sistemas' %>>
+          <%= link_to 'Sistemas', :controller => 'sistemas' %></a>
+      </li>		
+      <li <%= 'class="negrito"' if controller_name == 'tipo_chamados' %>>
+          <%= link_to 'Tipo de Chamados', :controller => 'tipo_chamados' %></a>
+      </li>		
+   </ul>
+</li>
+
+<li><a href="/logout"> <img src="/img/icons/25x25/dark/bended-arrow-down.png" width=25 height=25 alt=""> Sair </a></li>
+

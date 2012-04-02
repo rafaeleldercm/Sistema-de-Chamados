@@ -1,0 +1,79 @@
+   <% form_for @chamado, :html => { :multipart => true } do |f| -%>
+      <% unless @chamado.errors.blank? %>
+         <div class="grid_12">
+             <div class="box">
+                <div class="header">
+                   <img src="/img/icons/packs/fugue/16x16/cross-circle.png" width="16" height="16">
+                   <h3>Não foi possível gravar chamado.</h3>
+                  <span></span>
+                </div>
+                <div class="content">
+                   <div class="alert warning no-margin top" style='margin: 0'>
+                      <span class="icon"></span><span class="hide">x</span>Por favor, verifique o(s) seguinte(s) campo(s):
+                   </div>
+                   <% @chamado.errors.full_messages.each do |m| %>
+                      <div class="alert error" style='margin: 5px; '>
+                         <span class="icon"></span><span class="hide">x</span><strong>Error: </strong> <%= m %>
+                      </div>
+                   <% end %>
+                </div> <!-- End of .content -->
+             </div> <!-- End of .box -->
+          </div>
+      <% end %>
+   
+      <div class="grid_12">
+         <div class="box">
+            <div class="header">
+               <img width="16" height="16" alt="" src="/img/icons/packs/fugue/16x16/ui-text-field-format.png"/>
+               <h3>Chamado</h3> <span/>
+            </div>
+            <div class="content with_actions">
+               <div class="section _50">
+                  <%= label_tag 'Solicitante' %>
+                  <div>
+                      <%= text_field_tag :nome , @current_usuario.name,   :readonly => true %>
+                  </div>
+               </div>
+               <div class="section _50">
+                  <%= f.label :sistema %>
+                  <div>
+                     <%= f.select :sistema_id, @sistemas %>
+                  </div>
+               </div>
+               <div class='clear'></div>
+               <div class="section _50">
+                  <%= f.label :criado %>
+                  <div>
+                     <%= text_field_tag :criado, Time.now.to_s_br, :readonly => true %>
+                  </div>
+               </div>
+               <div class="section _50">
+                  <%= f.label :tipo_chamado, 'Tipo de Chamado' %>
+                  <div id='div_tipo_chamado_id'>
+                     <%= f.select :tipo_chamado_id, [['Selecione', nil]] %>
+                  </div>
+               </div>
+               <div class='clear'></div>
+               <div class="section _50">
+                  <p style='margin:10px'>
+                     <%= label_tag :mensagem, 'Solicitação'  %> <br/>
+                     <%= text_area_tag :mensagem %>
+                  </p>
+               </div>
+               <div class="section _50">
+                  <%= label_tag :arquivo  %> 
+                  <div class="customfile">
+                      <span id='span_name' aria-hidden="true" class="customfile-feedback customfile-ext-rb customfile-feedback-populated"></span>
+                      <%= file_field_tag :arquivo, :class=> "customfile-input valid", :style=>"height: 27px; left: 0; margin: 0; top: 0; width: 100%;" %>
+                  </div>
+               </div>
+            </div>
+            <div class="actions">
+               <div class="actions-right">
+                  <%= submit_tag "Confirmar" %>
+               </div>
+            </div>
+         </div>
+      </div>
+   <% end -%>
+

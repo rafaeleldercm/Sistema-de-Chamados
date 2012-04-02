@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  livro_id: 1
+  pagina_id: 1
+  ordem: MyString
+
+two:
+  livro_id: 1
+  pagina_id: 1
+  ordem: MyString

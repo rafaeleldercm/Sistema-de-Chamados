@@ -1,0 +1,28 @@
+
+
+<li class="<%= 'current' if ['mensagems', 'arquivos'].include? controller_name  or (controller_name == 'chamados' and ['abertos','em_atendimento', 'meus_pendentes','grupo_pendentes','todos'].include? action_name ) %>">
+   <a href="#">
+      <img src="/img/icons/25x25/dark/wacom-2.png" width=25 height=25 alt="">
+      Atendimento
+   </a>
+   <ul>
+      <li <%= 'class="negrito"' if controller_name == 'chamados' and action_name == 'abertos'        %>>
+          <%= link_to 'Abertos', :controller => 'chamados', :action => 'abertos' %></a>
+      </li>		
+      <li <%= 'class="negrito"' if controller_name == 'chamados' and action_name == 'em_atendimento' %>>
+          <%= link_to 'Atendimento', :controller => 'chamados', :action => 'em_atendimento' %></a>
+      </li>		
+      <li <%= 'class="negrito"' if controller_name == 'chamados' and action_name == 'todos' %>>
+          <%= link_to 'Todos', :controller => 'chamados', :action => 'todos' %></a>
+      </li>		
+      <li <%= 'class="negrito"' if controller_name == 'chamados' and action_name == 'meus_pendentes' %>>
+          <%= link_to 'Minhas Pendências', :controller => 'chamados', :action => 'meus_pendentes' %></a>
+      </li>		
+      <li <%= 'class="negrito"' if controller_name == 'chamados' and action_name == 'grupo_pendentes' %>>
+          <%= link_to 'Pendências do Grupo', :controller => 'chamados', :action => 'grupo_pendentes' %></a>
+      </li>		
+   </ul>
+</li>
+
+<li><a href="/logout"> <img src="/img/icons/25x25/dark/bended-arrow-down.png" width=25 height=25 alt=""> Sair </a></li>
+

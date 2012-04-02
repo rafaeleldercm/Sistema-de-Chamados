@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<obito>
+  <cartorio-id type="integer" nil="true"/>
+  <data-por-extenso >22 de setembro de 1980</data-por-extenso>
+  <data-ano >1980</data-ano>
+  <data-mes >09</data-mes>
+  <data-dia >22</data-dia>
+  <causa-morte>INFARTO FUMINANTE</causa-morte>
+  <cemiterio-sepultamento>PARQUE DA PAZ</cemiterio-sepultamento>
+  <cor>1</cor>
+  <cpf-medico/>
+  <crc-medico>852147</crc-medico>
+  <created-at type="datetime">2009-12-29T19:42:39Z</created-at>
+  <data-de-nascimento type="date">2009-12-29</data-de-nascimento>
+  <data-falecimento type="date">2009-12-29</data-falecimento>
+  <declarante>NAO TEM</declarante>
+  <documento-identificacao>CPF 62860631372</documento-identificacao>
+  <eleitor>0000000000000</eleitor>
+  <endereco>R. LIBANIA 105 - SERRINHA - FORTALEZA -CE</endereco>
+  <estado-civil type="integer">1</estado-civil>
+  <hora-falecimento type="datetime">2000-01-01T18:46:00Z</hora-falecimento>
+  <id type="integer">1</id>
+  <local-falecimento>TRABALHANDO</local-falecimento>
+  <mae-nome>MARIA CORDEIRO BATISTA</mae-nome>
+  <municipio-sepultamento>FORTALEZA</municipio-sepultamento>
+  <naturalidade>FORTALEZA</naturalidade>
+  <nome>IGOR C. BATISTA</nome>
+  <nome-medico>RAIMUNDO SOLDADO</nome-medico>
+  <numero-da-folha/>
+  <numero-do-livro/>
+  <numero-do-termo/>
+  <numero-matricula/>
+  <observacoes-averbacoes/>
+  <oficial-registrador>JOSE DA SIVA</oficial-registrador>
+  <pai-nome>JOSE JURENVILLE LIMA BATISTA</pai-nome>
+  <sexo type="integer">1</sexo>
+  <tipo-de-acervo type="integer">1</tipo-de-acervo>
+  <tipo-do-livro type="integer">1</tipo-do-livro>
+  <updated-at type="datetime">2009-12-29T19:42:39Z</updated-at>
+  <oficio-registro>2° OFICIO RTD</oficio-registro>
+  <endereco-oficio>Av. DESEMBARGADOR MOREIRA 1200</endereco-oficio>
+  <complemento-oficio>ALDEOTA - FORTALEZA -CE</complemento-oficio>
+</obito>

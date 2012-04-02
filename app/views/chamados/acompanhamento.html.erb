@@ -1,0 +1,31 @@
+
+
+   <% @sistemas.each do |s| %>
+      <% abertos = s.abertos     unless s.abertos.blank? %>
+      <% i = 1 %>
+                    
+      <div class='acompanhamento' style='margin-left: 15px' >
+         <h2 style='text-align: center'> <%= s.nome %>  </h2> 
+         <div class='chamados_vermelho' >
+            Chamados Abertos :          <%= abertos.nil? ? 0 : abertos.size %> 
+         </div>
+         <div class='chamados_azul' >
+            Em Atendimento:  <%= s.atendimento.size            if s.atendimento  %>
+         </div>
+         <% if abertos %>
+            <div class='chamados_azul'>
+               <br/>
+               <%= abertos.first.id %> - <%= abertos.first.usuario.name %> - <%= abertos.first.created_at.strftime("%d/%m") %>
+               <br/>
+               <br/>
+            </div>
+         <% elsif !s.atendimento.blank? %>
+            <div class='chamados_azul'>
+               <br/>
+               <%= s.atendimento.first.id %> - <%= s.atendimento.first.usuario.name %> - <%= s.atendimento.first.created_at.strftime("%d/%m") %>
+               <br/>
+               <br/>
+            </div>
+         <% end %>
+      </div>
+   <% end %>

@@ -1,0 +1,10 @@
+
+var tipo_chamado = $("#chamado_tipo_chamado_id"); 
+
+$('#chamado_tipo_chamado_id option').remove();
+
+tipo_chamado.append("<option value=''>Selecione</option>");
+<% @tipo_chamados.each do |t| %>
+   tipo_chamado.append("<option value=<%= t.id %> ><%= t.nome %></option>");
+<% end %>
+

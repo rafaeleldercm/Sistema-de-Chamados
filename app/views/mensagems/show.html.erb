@@ -1,0 +1,13 @@
+<p>
+  <b>Descricao:</b>
+  <%=h @mensagem.descricao %>
+</p>
+
+<p>
+  <b>Chamado:</b>
+  <%=h @mensagem.chamado %>
+</p>
+
+
+<%= link_to 'Edit', edit_mensagem_path(@mensagem) %> |
+<%= link_to 'Back', mensagems_path %>

@@ -1,0 +1,138 @@
+<div id='main_content'>
+<h2 class='grid_12'> Visualizar Chamado</h2>
+
+   <div class="clean"/>
+   <center>
+      <a href="javascript:history.back()">Voltar</a>
+   </center>
+   <br/>
+   <form id='layout'>
+      <div class="grid_12">
+         <div class="box">
+            <div class="header">
+               <img width="16" height="16" alt="" src="/img/icons/packs/fugue/16x16/ui-text-field-format.png"/>
+               <h3>Chamado #<%= @chamado.id %></h3> <span/>
+            </div>
+            <div class="content with_actions">
+               <div class="section _50">
+                  <%= label_tag 'Solicitante' %>
+                  <div>
+                      <%= text_field_tag :nome , @chamado.usuario.name,   :readonly => true %>
+                  </div>
+               </div>
+               <div class="section _50">
+                  <%= label_tag :sistema, "Sistema / Tipo" %>
+                  <div>
+                     <%= text_field_tag :sistema_id, "#{@chamado.sistema.nome} / #{@chamado.tipo_chamado.nome}" , :readonly => true%>
+                  </div>
+               </div>
+               <div class="section _50">
+                  <%= label_tag :criado %>
+                  <div>
+                     <%= text_field_tag :criado, @chamado.created_at.to_s_br, :readonly => true %>
+                  </div>
+               </div>
+               <div class="section _50">
+                  <%= label_tag :atendente %>
+                  <div>
+                     <%= text_field_tag :atendente, (@chamado.atendente ? @chamado.atendente.name : '' ) , :readonly => true %>
+                  </div>
+               </div>
+               <div class="section _50">
+                  <p style='margin:10px'>
+                     <%= label_tag :mensagem, 'Solicitação'  %> <br/>
+                     <%= text_area_tag :mensagem , (@chamado.mensagems.blank? ? '' : @chamado.mensagems.first.descricao) , :readonly => true %>
+                  </p>
+               </div>
+               <div class="section _50">
+                  <%= label_tag :status %>
+                  <div>
+                     <%= text_field_tag :status, @chamado.status_desc, :readonly => true %>
+                  </div>
+               </div>
+               <div class="section _50">
+                  <% count = 0 %>
+                  <% @chamado.arquivos.all(:order => :id).each do |a|%>
+                     <% count += 1 %>
+                        <%= label_tag "Arquivo ##{count}"  %> 
+                        <div class="mycustom-file">
+                          <span aria-hidden="true" class="customfile-feedback customfile-ext-rb customfile-feedback-populated"><%= a.arquivo_file_name%></span>
+                          <%= link_to a.id, a.arquivo.url, :class=> "customfile-input valid", :style=>"height: 27px;left:0;margin:0;top:0;width: 100%;", 
+                                                           :target => '_blank' %>
+                        </div>
+                        <div class='clear'></div>
+                  <% end %>
+               </div>
+            </div>
+            <div class="actions">
+               <% if @chamado.pode_reabrir? (@current_usuario.id) %>
+                  <div class="actions-left">
+                     <a href='/chamados/reabrir/<%= @chamado.id %>'> <button type="button"> Reabrir </button> </a>
+                  </div>
+               <% end %>
+               <% if @chamado.pode_encaminhar? (@current_usuario.id)%>
+                  <div class="actions-left">
+                     <a href='/chamados/encaminhar/<%= @chamado.id %>'> <button type="button"> Encaminhar </button> </a>
+                  </div>
+               <% elsif @current_usuario.is_atendente?(@chamado.sistema.id) and @chamado.pode_atender? (@current_usuario.id) %>
+                  <div class="actions-left">
+                     <a href='/chamados/atender/<%= @chamado.id %>'> <button type="button"> Atender</button> </a>
+                  </div>
+               <% end %>
+               
+               <% if @chamado.pode_responder? (@current_usuario.id)%>
+                  <div class="actions-right">
+                     <a href='/mensagems/new/<%= @chamado.id %>'> <button type="button"> Enviar Mensagem</button> </a>
+                  </div>
+                  <div class="actions-right">
+                     <a href='/arquivos/new?id=<%= @chamado.id %>'> <button type="button"> Anexar Arquivo</button> </a>
+                  </div>
+               <% end %>
+            </div>
+         </div>
+      </div>
+      <div class="grid_12">
+         <div class="box">
+            <div class="header">
+               <img width="16" height="16" alt="" src="/img/icons/packs/fugue/16x16/ui-text-field-format.png"/>
+               <h3>Mensagens</h3> <span/>
+            </div>
+            <div class="content">
+               <% count = 0 %>
+               <% @chamado.mensagems.all(:order => :id).each do |m| %>
+                  <% count += 1 %>
+                  <% unless @chamado.mensagems.first == m %>
+                     <!-- Mensagens -->
+                     <div class="section _50">
+                        <p style='margin:10px'>
+                           <%= label_tag :mensagem, "Mensagem ##{count}"  %> <br/>
+                           <%= text_area_tag :mensagem , m.descricao, :readonly => true %>
+                        </p>
+                     </div>
+                     <div class="section _50">
+                        <%= label_tag :usuario %>
+                        <div>
+                           <%= text_field_tag :usuario, m.usuario.name, :readonly => true if m.usuario%>
+                        </div>
+                     </div>
+                     <div class="section _50">
+                        <%= label_tag 'Enviado' %>
+                        <div>
+                           <%= text_field_tag :created_at, m.created_at.to_s_br, :readonly => true %>
+                        </div>
+                     </div>
+                     <div class="section _50">
+                        <%= label_tag 'Status do Chamado' %>
+                        <div>
+                           <%= text_field_tag :status, m.chamado_status_desc, :readonly => true %>
+                        </div>
+                     </div>
+                     <div class='clear'></div>
+                  <% end %>
+               <% end %>
+            </div>
+         </div>
+      </div>
+      </form> 
+   </div>
+</div>

@@ -1,0 +1,45 @@
+<div id='main_content'>
+<h2 class='grid_12'> Associar Sistemas</h2>
+
+   <div class="clean"/>
+   <center>
+      <a href="javascript:history.back()">Voltar</a>
+   </center>
+   <br/>
+
+   <%= form_tag :action => 'update_sistema' %>
+      <%= hidden_field_tag :id, @grupo.id %>
+      <div class="grid_12">
+         <div class="box">
+            <div class="header">
+               <img width="16" height="16" alt="" src="/img/icons/packs/fugue/16x16/ui-text-field-format.png"/>
+               <h3>Associar Sistemas</h3> <span/>
+            </div>
+            <div class="content with_actions">
+               <div class="section _100">
+                  <%= label_tag 'Grupo' %>
+                  <div>
+                      <%= text_field_tag :nome, @grupo.nome, :readonly => true %>
+                  </div>
+               </div>
+               
+               <% @sistemas.each do |s| %>
+                  <div class="section _50">
+                     <%= label_tag s.nome %>
+                     <div>
+                        <%= check_box_tag "tipo[]", s.id, @grupo.sistemas.include?(s)  %>
+                     </div>
+                  </div>
+               <% end %>
+            </div>
+            <div class="actions">
+               <div class="actions-right">
+                  <%= submit_tag "Confirmar" %>
+               </div>
+            </div>
+         </div>
+      </div>
+   </form>
+
+</div>
+</div>

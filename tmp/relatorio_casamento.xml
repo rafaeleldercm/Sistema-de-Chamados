@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<casamento>
+  <created-at type="datetime">2009-12-22T15:59:34Z</created-at>
+  <data-registro type="date">2009-12-22</data-registro>
+  <data-por-extenso >22 de dezembro de 2009</data-por-extenso>
+  <data-ano >2009</data-ano>
+  <data-mes >12</data-mes>
+  <data-dia >22</data-dia>
+  <numero-matricula>999999 99 99 9999 9 99999 999 9999999 99</numero-matricula>
+  <id type="integer">2</id>
+  <noiva-data-nascimento type="date">1983-08-11</noiva-data-nascimento>
+  <noiva-local-nascimento>MATERNIDADE</noiva-local-nascimento>
+  <noiva-nacionalidade>BRASILEIRA</noiva-nacionalidade>
+  <noiva-nome-casada>MARIA IMACULADA DE BARROS BATISTA</noiva-nome-casada>
+  <noiva-nome-mae>IRISVALDA DE BARROS</noiva-nome-mae>
+  <noiva-nome-pai>NARCISIO SILVA</noiva-nome-pai>
+  <noiva-nome-solteira>MARIA IMACULADA DE BARROS SILVA</noiva-nome-solteira>
+  <noivo-data-nascimento type="date">1980-09-22</noivo-data-nascimento>
+  <noivo-local-nascimento>HOSPITAL</noivo-local-nascimento>
+  <noivo-nacionalidade>BRASILEIRA</noivo-nacionalidade>
+  <noivo-nome-casado>IGOR C. BATISTA</noivo-nome-casado>
+  <noivo-nome-mae>MARIA CORDEIRO</noivo-nome-mae>
+  <noivo-nome-pai>JOSE JURENVILLE</noivo-nome-pai>
+  <noivo-nome-solteiro>IGOR C. BATISTA</noivo-nome-solteiro>
+  <numero-matricula/>
+  <observacoes-averbacoes>1212</observacoes-averbacoes>
+  <oficial-registrador>JOSE ANTONIO</oficial-registrador>
+  <regime-de-bens>PARCIAL</regime-de-bens>
+  <updated-at type="datetime">2009-12-22T16:00:08Z</updated-at>
+  <oficio-registro>2° OFICIO RTD</oficio-registro>
+  <endereco-oficio>Av. DESEMBARGADOR MOREIRA 1200</endereco-oficio>
+  <complemento-oficio>ALDEOTA - FORTALEZA -CE</complemento-oficio>
+</casamento>

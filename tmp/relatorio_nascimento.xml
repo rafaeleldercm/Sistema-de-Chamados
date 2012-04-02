@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nascimento>
+  <created-at type="datetime">2009-12-22T13:40:31Z</created-at>
+  <data type="date">2009-09-22</data>
+  <data-por-extenso >22 de setembro de 1980</data-por-extenso>
+  <data-ano >1980</data-ano>
+  <data-mes >09</data-mes>
+  <data-dia >22</data-dia>
+  <gemeo type="boolean">false</gemeo>
+  <hora type="datetime">13:15:00Z</hora>
+  <id type="integer">1</id>
+  <local-nascimento>HOSPITAL MENINO JESUS</local-nascimento>
+  <mae-avo-nome>S/</mae-avo-nome>
+  <mae-avoh-nome>S/</mae-avoh-nome>
+  <mae-nome>MARIA CORDEIRO BATISTA</mae-nome>
+  <municipio-nascimento>FORTALEZA - CE</municipio-nascimento>
+  <municipio-registro>FORTALEZA - CE</municipio-registro>
+  <nome>IGOR CORDEIRO BATISTA</nome>
+  <nome-e-matriculas-gemeos/>
+  <numero-declaracao-nascido-vivo>123456</numero-declaracao-nascido-vivo>
+  <numero-matricula>999999 99 99 9999 9 99999 999 9999999 99</numero-matricula>
+  <observacaoes-averbacoes/>
+  <oficial-registrador>JOAO DA SILVA</oficial-registrador>
+  <pai-avo-nome>RAIMUNDO LIMA BATISTA</pai-avo-nome>
+  <pai-avoh-nome>OSMARINA LIMA BATISTA</pai-avoh-nome>
+  <pai-nome>JOSE JURENVILLE LIMA BATISTA</pai-nome>
+  <sexo type="integer">1</sexo>
+  <uf-nascimento>CE</uf-nascimento>
+  <uf-registro>CE</uf-registro>
+  <uf-registro>CE</uf-registro>
+  <updated-at type="datetime">2009-12-22T13:40:31Z</updated-at>
+  <oficio-registro>2° OFICIO RTD</oficio-registro>
+  <endereco-oficio>Av. DESEMBARGADOR MOREIRA 1200</endereco-oficio>
+  <complemento-oficio>ALDEOTA - FORTALEZA -CE</complemento-oficio>
+</nascimento>

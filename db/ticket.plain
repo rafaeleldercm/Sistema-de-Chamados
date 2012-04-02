@@ -1,0 +1,963 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: arquivos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE arquivos (
+    id integer NOT NULL,
+    arquivo_file_name character varying(255),
+    arquivo_content_type character varying(255),
+    arquivo_file_size character varying(255),
+    chamado_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.arquivos OWNER TO postgres;
+
+--
+-- Name: arquivos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE arquivos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.arquivos_id_seq OWNER TO postgres;
+
+--
+-- Name: arquivos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE arquivos_id_seq OWNED BY arquivos.id;
+
+
+--
+-- Name: arquivos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('arquivos_id_seq', 14, true);
+
+
+--
+-- Name: chamados; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE chamados (
+    id integer NOT NULL,
+    usuario_id integer,
+    sistema_id integer,
+    tipo_chamado_id integer,
+    atendente_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    status integer DEFAULT 0,
+    grupo_id integer
+);
+
+
+ALTER TABLE public.chamados OWNER TO postgres;
+
+--
+-- Name: chamados_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE chamados_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chamados_id_seq OWNER TO postgres;
+
+--
+-- Name: chamados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE chamados_id_seq OWNED BY chamados.id;
+
+
+--
+-- Name: chamados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('chamados_id_seq', 35, true);
+
+
+--
+-- Name: grupos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE grupos (
+    id integer NOT NULL,
+    nome character varying(255),
+    master boolean,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    atendente boolean DEFAULT false
+);
+
+
+ALTER TABLE public.grupos OWNER TO postgres;
+
+--
+-- Name: grupos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE grupos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.grupos_id_seq OWNER TO postgres;
+
+--
+-- Name: grupos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE grupos_id_seq OWNED BY grupos.id;
+
+
+--
+-- Name: grupos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('grupos_id_seq', 10, true);
+
+
+--
+-- Name: grupos_sistemas; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE grupos_sistemas (
+    grupo_id integer NOT NULL,
+    sistema_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.grupos_sistemas OWNER TO postgres;
+
+--
+-- Name: grupos_usuarios; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE grupos_usuarios (
+    usuario_id integer NOT NULL,
+    grupo_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.grupos_usuarios OWNER TO postgres;
+
+--
+-- Name: mensagems; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE mensagems (
+    id integer NOT NULL,
+    chamado_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    descricao text,
+    usuario_id integer,
+    chamado_status integer
+);
+
+
+ALTER TABLE public.mensagems OWNER TO postgres;
+
+--
+-- Name: mensagems_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE mensagems_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.mensagems_id_seq OWNER TO postgres;
+
+--
+-- Name: mensagems_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE mensagems_id_seq OWNED BY mensagems.id;
+
+
+--
+-- Name: mensagems_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('mensagems_id_seq', 32, true);
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO postgres;
+
+--
+-- Name: sessions; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE sessions (
+    id integer NOT NULL,
+    session_id text NOT NULL,
+    data text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.sessions OWNER TO postgres;
+
+--
+-- Name: sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE sessions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sessions_id_seq OWNER TO postgres;
+
+--
+-- Name: sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE sessions_id_seq OWNED BY sessions.id;
+
+
+--
+-- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('sessions_id_seq', 46, true);
+
+
+--
+-- Name: sistemas; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE sistemas (
+    id integer NOT NULL,
+    nome character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    ativo boolean DEFAULT true
+);
+
+
+ALTER TABLE public.sistemas OWNER TO postgres;
+
+--
+-- Name: sistemas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE sistemas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sistemas_id_seq OWNER TO postgres;
+
+--
+-- Name: sistemas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE sistemas_id_seq OWNED BY sistemas.id;
+
+
+--
+-- Name: sistemas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('sistemas_id_seq', 3, true);
+
+
+--
+-- Name: sistemas_tipo_chamados; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE sistemas_tipo_chamados (
+    id integer NOT NULL,
+    sistema_id integer NOT NULL,
+    tipo_chamado_id integer NOT NULL
+);
+
+
+ALTER TABLE public.sistemas_tipo_chamados OWNER TO postgres;
+
+--
+-- Name: sistemas_tipo_chamados_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE sistemas_tipo_chamados_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sistemas_tipo_chamados_id_seq OWNER TO postgres;
+
+--
+-- Name: sistemas_tipo_chamados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE sistemas_tipo_chamados_id_seq OWNED BY sistemas_tipo_chamados.id;
+
+
+--
+-- Name: sistemas_tipo_chamados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('sistemas_tipo_chamados_id_seq', 1, false);
+
+
+--
+-- Name: tipo_chamados; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE tipo_chamados (
+    id integer NOT NULL,
+    nome character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.tipo_chamados OWNER TO postgres;
+
+--
+-- Name: tipo_chamados_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE tipo_chamados_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tipo_chamados_id_seq OWNER TO postgres;
+
+--
+-- Name: tipo_chamados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE tipo_chamados_id_seq OWNED BY tipo_chamados.id;
+
+
+--
+-- Name: tipo_chamados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('tipo_chamados_id_seq', 4, true);
+
+
+--
+-- Name: usuarios; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE usuarios (
+    id integer NOT NULL,
+    login character varying(40),
+    name character varying(100) DEFAULT ''::character varying,
+    email character varying(100),
+    crypted_password character varying(40),
+    salt character varying(40),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    remember_token character varying(40),
+    remember_token_expires_at timestamp without time zone,
+    telefone character varying(255),
+    bloqueado boolean DEFAULT false
+);
+
+
+ALTER TABLE public.usuarios OWNER TO postgres;
+
+--
+-- Name: usuarios_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE usuarios_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.usuarios_id_seq OWNER TO postgres;
+
+--
+-- Name: usuarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE usuarios_id_seq OWNED BY usuarios.id;
+
+
+--
+-- Name: usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('usuarios_id_seq', 21, true);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY arquivos ALTER COLUMN id SET DEFAULT nextval('arquivos_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY chamados ALTER COLUMN id SET DEFAULT nextval('chamados_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY grupos ALTER COLUMN id SET DEFAULT nextval('grupos_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY mensagems ALTER COLUMN id SET DEFAULT nextval('mensagems_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sessions ALTER COLUMN id SET DEFAULT nextval('sessions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sistemas ALTER COLUMN id SET DEFAULT nextval('sistemas_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sistemas_tipo_chamados ALTER COLUMN id SET DEFAULT nextval('sistemas_tipo_chamados_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tipo_chamados ALTER COLUMN id SET DEFAULT nextval('tipo_chamados_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuarios ALTER COLUMN id SET DEFAULT nextval('usuarios_id_seq'::regclass);
+
+
+--
+-- Data for Name: arquivos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY arquivos (id, arquivo_file_name, arquivo_content_type, arquivo_file_size, chamado_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: chamados; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY chamados (id, usuario_id, sistema_id, tipo_chamado_id, atendente_id, created_at, updated_at, status, grupo_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: grupos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY grupos (id, nome, master, created_at, updated_at, atendente) FROM stdin;
+1	Administrador	t	\N	\N	\N
+4	Cliente DUTE	\N	2012-03-13 11:06:01.267627	2012-03-13 11:06:01.267627	f
+8	Cliente ALIENA	\N	2012-03-13 11:15:05.768975	2012-03-13 11:15:05.768975	f
+9	Cliente UA	\N	2012-03-13 11:15:10.729147	2012-03-13 11:15:10.729147	f
+6	Desenvolvimento ALIENA	\N	2012-03-13 11:11:56.518434	2012-03-13 18:30:59.607614	t
+2	Desenvolvimento DUTE	\N	\N	2012-03-13 18:31:08.247259	t
+5	Desenvolvimento UA	\N	2012-03-13 11:11:33.194133	2012-03-13 18:31:15.223956	t
+7	Suporte ALIENA	\N	2012-03-13 11:12:09.514663	2012-03-13 18:31:20.021861	t
+3	Suporte DUTE	\N	\N	2012-03-13 18:31:23.21714	t
+10	Cliente DUTE / ALIENA	\N	2012-03-13 19:26:31.33971	2012-03-13 19:26:31.33971	f
+\.
+
+
+--
+-- Data for Name: grupos_sistemas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY grupos_sistemas (grupo_id, sistema_id, created_at, updated_at) FROM stdin;
+3	2	2012-03-09 16:29:18.530162	2012-03-09 16:29:18.530162
+2	2	2012-03-09 16:29:18.530162	2012-03-09 16:29:18.530162
+5	3	2012-03-13 11:11:03.009653	2012-03-13 11:11:03.009653
+7	1	2012-03-09 16:29:08.246944	2012-03-09 16:29:08.246944
+6	1	2012-03-09 16:29:08.246944	2012-03-09 16:29:08.246944
+4	2	2012-03-09 16:29:18.530162	2012-03-09 16:29:18.530162
+9	3	2012-03-13 11:11:03.009653	2012-03-13 11:11:03.009653
+8	1	2012-03-09 16:29:08.246944	2012-03-09 16:29:08.246944
+10	1	2012-03-09 16:29:08.246944	2012-03-09 16:29:08.246944
+10	2	2012-03-09 16:29:18.530162	2012-03-09 16:29:18.530162
+\.
+
+
+--
+-- Data for Name: grupos_usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY grupos_usuarios (usuario_id, grupo_id, created_at, updated_at) FROM stdin;
+1	1	\N	\N
+3	10	2012-03-13 11:13:31.773458	2012-03-13 18:43:20.094019
+6	10	2012-03-13 18:42:04.836344	2012-03-13 18:42:04.836344
+11	10	2012-03-13 18:56:11.956496	2012-03-13 18:56:11.956496
+5	10	2012-03-13 11:18:36.238686	2012-03-13 18:43:50.328897
+8	10	2012-03-13 18:50:57.293739	2012-03-13 18:50:57.293739
+12	10	2012-03-13 19:01:07.275619	2012-03-13 19:01:07.275619
+21	4	2012-03-13 19:22:20.839012	2012-03-13 19:22:20.839012
+14	8	2012-03-13 19:08:29.796421	2012-03-13 19:08:29.796421
+18	8	2012-03-13 19:16:52.66242	2012-03-13 19:27:31.799929
+7	8	2012-03-13 18:49:04.479752	2012-03-13 18:49:04.479752
+19	8	2012-03-13 19:18:44.660014	2012-03-13 19:18:44.660014
+13	8	2012-03-13 19:07:52.180987	2012-03-13 19:07:52.180987
+20	8	2012-03-13 19:21:17.223771	2012-03-13 19:21:17.223771
+16	8	2012-03-13 19:14:00.995121	2012-03-13 19:14:00.995121
+17	8	2012-03-13 19:14:49.337227	2012-03-13 19:14:49.337227
+15	8	2012-03-13 19:11:15.224889	2012-03-13 19:11:15.224889
+\.
+
+
+--
+-- Data for Name: mensagems; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY mensagems (id, chamado_id, created_at, updated_at, descricao, usuario_id, chamado_status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY schema_migrations (version) FROM stdin;
+20091220012708
+20100226182641
+20100226182642
+20110408000704
+20120308172640
+20120308175935
+20120308181706
+20120308184621
+20120308194238
+20120308194250
+20120308200519
+20120309115742
+20120309123958
+20120309131925
+20120309134621
+20120309161045
+20120309163148
+20120309164743
+20120309170939
+20120309174556
+20120309180343
+20120309193744
+20120309195332
+20120310142440
+20120310142906
+20120312183735
+20120313114941
+20120313121722
+\.
+
+
+--
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY sessions (id, session_id, data, created_at, updated_at) FROM stdin;
+30	912133a5a0a5dce5ba93c91f0d918304	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 17:35:23.512788	2012-03-13 17:39:12.760547
+9	780735ef7037c9f1527d5882aa7ccf48	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 11:36:49.911161	2012-03-13 11:38:55.944767
+19	63bc958c26683b334b0579460f35ccae	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 14:01:39.377627	2012-03-13 14:09:42.239448
+31	f41b5460dec3d1c18ea0dd15ffb20c4a	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 17:39:12.904382	2012-03-13 17:39:34.729935
+10	dab6d246842dc8dac3d7f65f38b09d6d	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 11:38:56.09305	2012-03-13 11:39:13.083657
+15	50491f0ed549d28444a1fcaf28804368	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 12:48:55.456869	2012-03-13 16:36:31.032116
+11	3dc83d33f493a88da51c41d6ab52ac3b	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 11:39:13.224247	2012-03-13 12:03:20.35591
+1	011a973ef42341bbe19cf785e607c08b	BAh7ByIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo\nSGFzaHsABjoKQHVzZWR7ADoPdXN1YXJpb19pZGkG\n	2012-03-09 16:13:40.536112	2012-03-10 10:48:08.088697
+21	360bc5babbfe00cf6b600c66282b28ff	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 16:36:31.264125	2012-03-13 16:41:31.375197
+12	f3f9f336cdebe37eb57fb9b7cf4a418f	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 12:03:20.497978	2012-03-13 12:29:18.813845
+32	ad6c094bcc7cfce3c348060f8e0e1e7f	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 17:39:34.863623	2012-03-13 17:39:57.853049
+22	ef55256f89caf5e11721826476cf166f	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 16:41:31.514241	2012-03-13 16:42:00.844021
+13	7f58aa9be179732968471f14c08cc5c0	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 12:29:18.942912	2012-03-13 12:33:25.969619
+2	652ede29c19ca6f4b5fc6097405736e1	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-12 11:41:21.708438	2012-03-12 18:46:02.102741
+20	c58a3440ee4f3d3b67488365e25abdfc	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 14:09:42.471999	2012-03-13 17:56:31.13718
+23	21c576917af9538edaddc58c7a228c30	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 16:42:01.094443	2012-03-13 16:42:22.124776
+36	20511a14946b2897efb94c0f387ee997	BAh7BzoOcmV0dXJuX3RvIgYvIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVy\nOjpGbGFzaDo6Rmxhc2hIYXNoewAGOgpAdXNlZHsA\n	2012-03-13 17:56:31.37905	2012-03-13 17:56:31.569005
+3	dc1731b63b5945ea203a39d13bf34310	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-12 18:46:02.299654	2012-03-12 18:58:13.442639
+14	84b345de23fbde746fecded078e25304	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 12:33:26.114851	2012-03-13 12:48:55.296929
+4	7d4bdb865b610716c9b2e1a6b3a5510c	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-12 18:58:13.777878	2012-03-12 19:01:14.687261
+24	9b881e800d98b2ea4bee964e2e1b42c8	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 16:42:22.263679	2012-03-13 16:42:34.459962
+8	3492c838d37fedf27df725b17a4c39c2	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 11:36:17.764621	2012-03-13 17:21:34.796876
+5	58ed8a83fae853a9b3fc8997fe9be4ca	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-12 19:01:15.184869	2012-03-12 19:14:00.696408
+6	789c01f8b3e17d298c86decbc619ff59	BAh7BzoPdXN1YXJpb19pZGkHIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVy\nOjpGbGFzaDo6Rmxhc2hIYXNoewAGOgpAdXNlZHsA\n	2012-03-12 19:14:01.143042	2012-03-12 19:14:21.165971
+26	c211f42243d3ba65910a15438aeb9eca	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 17:21:34.929352	2012-03-13 17:28:08.618546
+16	84687235f88d68f01684b30e9fd7aca0	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 13:57:00.874171	2012-03-13 13:57:47.989262
+17	6e65af90204588a6b6925ffcad630d82	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 13:57:48.135937	2012-03-13 14:01:15.273065
+27	698c48754a332f8af89fdaff30a96df0	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 17:28:08.755263	2012-03-13 17:30:37.982291
+18	4539230b6620efff24d469039e644c65	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 14:01:15.541255	2012-03-13 14:01:39.132821
+25	a1620edf19363952c54636702a57f8bc	BAh7BzoPdXN1YXJpb19pZGkIIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVy\nOjpGbGFzaDo6Rmxhc2hIYXNoewY6C25vdGljZSIgTG9naW4gcmVhbGl6YWRv\nIGNvbSBzdWNlc3NvBjoKQHVzZWR7BjsHVA==\n	2012-03-13 16:42:34.600982	2012-03-13 17:33:46.381791
+28	a5db299ff83a85acf5010d14921d2a1c	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 17:30:38.218716	2012-03-13 17:34:37.674815
+29	33a88d30165245964eb8377c890acaba	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 17:34:37.831087	2012-03-13 17:35:23.357789
+7	228063b10987068766bb413ce96c76c6	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 10:56:02.742696	2012-03-13 11:36:49.759657
+40	27aac7fa4719dc922c35eca588ca4133	BAh7BzoOcmV0dXJuX3RvIgYvIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVy\nOjpGbGFzaDo6Rmxhc2hIYXNoewAGOgpAdXNlZHsA\n	2012-03-13 19:08:27.787296	2012-03-13 19:08:28.098177
+33	144ae86b0dff6bb939c34bb659b5802b	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 17:39:57.98951	2012-03-13 17:41:48.931919
+42	4e9a4d3581f87e223b21bf188699d785	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 19:45:40.914025	2012-03-13 19:46:02.710972
+34	ac8d441c7122203a0ae0e14f096bb7c7	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 17:41:49.085626	2012-03-13 17:44:03.204483
+44	10dadbae55d3b7855cdcd7ab5dc06925	BAh7BzoPdXN1YXJpb19pZGkQIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVy\nOjpGbGFzaDo6Rmxhc2hIYXNoewAGOgpAdXNlZHsA\n	2012-03-13 19:46:21.037553	2012-03-13 19:46:32.2247
+35	d76b2e4e1f9889e95367039b2b3f8416	BAh7BzoPdXN1YXJpb19pZGkGIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVy\nOjpGbGFzaDo6Rmxhc2hIYXNoewAGOgpAdXNlZHsA\n	2012-03-13 17:44:03.338506	2012-03-13 19:59:28.383001
+46	97a4d222258d296ff6356bdeddb07767	BAh7BzoPdXN1YXJpb19pZGkGIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVy\nOjpGbGFzaDo6Rmxhc2hIYXNoewAGOgpAdXNlZHsA\n	2012-03-14 11:18:13.900091	2012-03-14 11:18:33.518901
+39	6ff18a6fd0a738e3d5968b455cabfb23	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 19:07:13.145572	2012-03-13 19:08:27.651217
+37	409dfe44a34945dbddb111fe551da5fd	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 18:32:44.912416	2012-03-13 19:45:08.290631
+38	a00961b167d08a4828276fbf798533ab	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 19:06:46.810261	2012-03-13 19:07:12.997192
+41	62e18aade315ad66420bf71e0caa521a	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 19:45:08.427616	2012-03-13 19:45:40.644805
+43	7f5108a5895d5236c5ceec7953124adf	BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6\nRmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiGlZvY2Ugc2FpdSBkbyBzaXN0\nZW1hLgY6CkB1c2VkewY7B0Y=\n	2012-03-13 19:46:02.844398	2012-03-13 19:46:20.795366
+45	5ac56cd5ed77f3e9f7f0fd333b25c589	BAh7BzoPdXN1YXJpb19pZGkKIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVy\nOjpGbGFzaDo6Rmxhc2hIYXNoewAGOgpAdXNlZHsA\n	2012-03-13 19:47:23.600014	2012-03-13 19:47:35.912537
+\.
+
+
+--
+-- Data for Name: sistemas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY sistemas (id, nome, created_at, updated_at, ativo) FROM stdin;
+1	ALIENA	2012-03-09 16:29:08.246944	2012-03-09 16:29:08.246944	t
+2	DUTE	2012-03-09 16:29:18.530162	2012-03-09 16:29:18.530162	t
+3	Último Ataque	2012-03-13 11:11:03.009653	2012-03-13 17:50:06.557841	t
+\.
+
+
+--
+-- Data for Name: sistemas_tipo_chamados; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY sistemas_tipo_chamados (id, sistema_id, tipo_chamado_id) FROM stdin;
+3	1	3
+2	1	2
+4	1	4
+1	1	1
+3	2	3
+2	2	2
+4	2	4
+1	2	1
+2	3	2
+1	3	1
+\.
+
+
+--
+-- Data for Name: tipo_chamados; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY tipo_chamados (id, nome, created_at, updated_at) FROM stdin;
+1	Suporte	2012-03-09 16:29:34.880259	2012-03-09 16:29:34.880259
+2	Ferramentas	2012-03-09 16:29:42.094941	2012-03-09 16:29:42.094941
+3	Cliente ( Balcão )	2012-03-09 16:29:51.3787	2012-03-09 16:29:51.3787
+4	Financeiro	2012-03-09 16:29:57.444463	2012-03-09 16:29:57.444463
+\.
+
+
+--
+-- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY usuarios (id, login, name, email, crypted_password, salt, created_at, updated_at, remember_token, remember_token_expires_at, telefone, bloqueado) FROM stdin;
+1	admin	admin	admin@admin.com.br	aa7bc8cd8d2bad6d421740076fdebff889820147	\N	\N	\N	\N	\N	\N	\N
+4	robson	Robson	robson@mondriantecnologia.com	670083393b2c92f80bf91a6395848675a3ebe6e5	db892d341b91516a37355035961d8539e1153a88	2012-03-13 11:13:48.65855	2012-03-13 17:36:25.706015	\N	\N	(85) 9968-9700	f
+2	djosino	Danilo Josino	danilo.josino@gmail.com	6b396bab5158f5fce5a670d13eef2b9e7ad95b72	0b9384e716d0da932e45ed87d362a0bfdefd2083	2012-03-09 16:14:12.832967	2012-03-13 17:47:22.64778	\N	\N	(85) 3231-2802	f
+6	eliziane	Eliziane	irtdpjce-cecaf@hotmail.com	8a3d5668fa1e1ab7deac83b3be1c83e253e907e6	87243ffc0dadda27f9e89ac14cf4916c93b1923d	2012-03-13 18:42:04.836344	2012-03-13 18:42:04.836344	\N	\N	(85) 3261-2671	f
+3	camila	Camila	suporte@mondriantecnologia.com	4a007c013a95bf5d5c2adf5bc09a4b611c6a032d	3714c3e1eaf135678565514174f4637aa71e12b4	2012-03-13 11:13:31.773458	2012-03-13 18:43:20.094019	\N	\N	(85) 9711-1497	f
+5	marcia	Márcia	suporte@aliena.com.br	6dca1999c3110b54e99a295caf9f42561d3659ea	feec2714b13e3c2c8c59cb8c0a0f71bd83dfbbed	2012-03-13 11:18:36.238686	2012-03-13 18:43:50.328897	\N	\N	(85) 3261-2671	f
+7	fran	Francislaine	financeiro.fran-artd@aliena.com.br	ec09caa7f3293af26fb17f64de7afdd4e79d2fd5	a3bc5614675986552c2c792784125e02b3d96233	2012-03-13 18:49:04.479752	2012-03-13 18:49:04.479752	\N	\N	(85) 3304-9106	f
+8	priscila	Priscila	financeiro-artd@aliena.com.br	cf6885f01b5b5c79e43e1726b4e13d56bfe2ae93	e8b084760a724bbd32d4100531f4355ad2e4f83f	2012-03-13 18:50:57.293739	2012-03-13 18:50:57.293739	\N	\N	(85) 3304-9106	f
+9	magno	Magno	magno@mondriantecnologia.com	442e3c9e154efb111b2cc0a04f811c452f8a3b2c	ab9b1e368c24866ca68eb61d0be211bd8b6e6c42	2012-03-13 18:54:04.600269	2012-03-13 18:54:04.600269	\N	\N	(85) 9662-7089	f
+10	coutinho	Coutinho	coutinho@mondriantecnologia.com	fb957fbea0a5aa6ef548118d32fdd9e6b592c907	4ddcbb02fb50f95b630dabbb2f0bad51c00e16bf	2012-03-13 18:54:37.349784	2012-03-13 18:54:37.349784	\N	\N	(85) 9662-7069	f
+11	kaio	Kaio	suporte@duteletronico.net	d94dcb2992ce8694ffc37445d453fb838c190c1f	b1516f295392906697c541c991446d2a27338211	2012-03-13 18:56:11.956496	2012-03-13 18:56:11.956496	\N	\N	(85) 3433-1340	f
+12	thiago	Thiago Figueredo	financeiro-cecaf@aliena.com.br	3490100b1f20c1d190ddbe77b25a1f4f409a97c3	50355b21fc108ad666eea603b2c59cb5b821f7de	2012-03-13 19:01:07.275619	2012-03-13 19:01:07.275619	\N	\N	(85) 3433-1340	f
+13	isabella	Isabella	isabella_clfp@hotmail.com	95e53e20242fc0fed959eb6b4566180ae61d94a0	bf29229ddf4ba05601583bc7feb5625209995780	2012-03-13 19:07:52.180987	2012-03-13 19:07:52.180987	\N	\N	(85) 3452-7376	f
+14	aparecida	Aparecida	controlefisico@aliena.com.br	3a008e56872f77053f599bdbd9c8ff29d06f79a9	f4b893b7c0a29602ff80c0c015c076bda2ba311d	2012-03-13 19:08:29.796421	2012-03-13 19:08:29.796421	\N	\N	(85) 3452-7376	f
+15	fernandes	Thiago Fernandes	thiagofernandesmartins@yahoo.com.br	3478907e8ce709373a3a0a189f8512b61cc4af2c	bad0a81a099edd05a719477e1bf610fa7be06565	2012-03-13 19:11:15.224889	2012-03-13 19:11:15.224889	\N	\N	(85) 3304-9105	f
+16	juliana	Juliana	juridico@aliena.com.br	53e461fdb329cf809e09e1ab527a3571159dd2b9	d93cf820ca9338c1eedd87053555c8e32e79c2b4	2012-03-13 19:14:00.995121	2012-03-13 19:14:00.995121	\N	\N	(85) 3304-9100	f
+17	suzana	Suzana	suzanadelimaaraujo@yahoo.com.br	003917dd4bef59fa40dd86aab9ce5b197aa7b2dd	13e545f21d9f55a772827b1dbe958c6ec6d10497	2012-03-13 19:14:49.337227	2012-03-13 19:14:49.337227	\N	\N	(85) 3304-9102	f
+19	hosilene	Hosilene	dulene1@hotmail.com	dca079f1ba32190d576805bbc5fdc9a5f997a5b9	b9543e8fbd1e537b219c450e62350feeed63bf50	2012-03-13 19:18:44.660014	2012-03-13 19:18:44.660014	\N	\N	(85) 3304-9113	f
+20	jataline	Jataline	jataline16@hotmail.com	4bf821f66430457a9c19a08e53b98cbd62cdda1a	37fdfd72fcb853fca0721c51e4541abca5595b90	2012-03-13 19:21:17.223771	2012-03-13 19:21:17.223771	\N	\N	(85) 3304-9102	f
+21	teresa	Teresa	financeiro-artd@duteletronico.net	73ec2082ec4790d39d7dde63bdc80a1f2007382b	fbefced0c74ccf3fda0a85e9ea43eb0d7c916486	2012-03-13 19:22:20.839012	2012-03-13 19:22:20.839012	\N	\N	(85) 3304-9109	f
+18	claudiana	Claudiana	claudiana_pessoa@hotmail.com	f729c98d30b8d96d6d23f6e116cc67f52d48cf12	81c002553121ec04b4dc0d3a02c4c8add2cd9926	2012-03-13 19:16:52.66242	2012-03-13 19:27:31.799929	\N	\N	(85) 3304-9101	f
+\.
+
+
+--
+-- Name: arquivos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY arquivos
+    ADD CONSTRAINT arquivos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chamados_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY chamados
+    ADD CONSTRAINT chamados_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: grupos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY grupos
+    ADD CONSTRAINT grupos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: grupos_sistemas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY grupos_sistemas
+    ADD CONSTRAINT grupos_sistemas_pkey PRIMARY KEY (grupo_id, sistema_id);
+
+
+--
+-- Name: mensagems_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY mensagems
+    ADD CONSTRAINT mensagems_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY sessions
+    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sistemas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY sistemas
+    ADD CONSTRAINT sistemas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sistemas_tipo_chamados_id_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY sistemas_tipo_chamados
+    ADD CONSTRAINT sistemas_tipo_chamados_id_id PRIMARY KEY (sistema_id, tipo_chamado_id);
+
+
+--
+-- Name: tipo_chamados_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY tipo_chamados
+    ADD CONSTRAINT tipo_chamados_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: usuario_grupo_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY grupos_usuarios
+    ADD CONSTRAINT usuario_grupo_id PRIMARY KEY (usuario_id, grupo_id);
+
+
+--
+-- Name: usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY usuarios
+    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_arquivos_on_chamado_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_arquivos_on_chamado_id ON arquivos USING btree (chamado_id);
+
+
+--
+-- Name: index_chamados_on_status; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_chamados_on_status ON chamados USING btree (status);
+
+
+--
+-- Name: index_grupos_sistemas_on_grupo_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_grupos_sistemas_on_grupo_id ON grupos_sistemas USING btree (grupo_id);
+
+
+--
+-- Name: index_grupos_sistemas_on_sistema_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_grupos_sistemas_on_sistema_id ON grupos_sistemas USING btree (sistema_id);
+
+
+--
+-- Name: index_grupos_usuarios_on_grupo_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_grupos_usuarios_on_grupo_id ON grupos_usuarios USING btree (grupo_id);
+
+
+--
+-- Name: index_grupos_usuarios_on_usuario_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_grupos_usuarios_on_usuario_id ON grupos_usuarios USING btree (usuario_id);
+
+
+--
+-- Name: index_sessions_on_session_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_sessions_on_session_id ON sessions USING btree (session_id);
+
+
+--
+-- Name: index_sessions_on_updated_at; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_sessions_on_updated_at ON sessions USING btree (updated_at);
+
+
+--
+-- Name: index_sistemas_tipo_chamados_on_sistema_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_sistemas_tipo_chamados_on_sistema_id ON sistemas_tipo_chamados USING btree (sistema_id);
+
+
+--
+-- Name: index_sistemas_tipo_chamados_on_tipo_chamado_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_sistemas_tipo_chamados_on_tipo_chamado_id ON sistemas_tipo_chamados USING btree (tipo_chamado_id);
+
+
+--
+-- Name: index_usuarios_on_login; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_usuarios_on_login ON usuarios USING btree (login);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

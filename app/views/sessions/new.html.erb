@@ -1,0 +1,48 @@
+<% if !flash[:notice].blank?  %>
+   <div class="alert warning top .generated" style="margin: 0pt; border-left: medium none; border-right: medium none; border-radius: 0px;">
+        <span class="icon"></span>   <%= flash[:notice] %>
+   </div>
+<% elsif !flash[:error].blank?%>
+   <div class="alert warning top .generated" style="margin: 0pt; border-left: medium none; border-right: medium none; border-radius: 0px;">
+        <span class="icon"></span>   <%= flash[:error] %>
+   </div>
+<% end %>
+
+<% form_tag session_path do -%>
+    <div class="content no-padding">
+        <div class="section _100">
+           <label>Usuário</label> 
+           <div>
+              <%= text_field_tag 'login', @login, :class => 'required' %>
+           </div>
+        </div>
+  
+        <div class="section _100">
+           <label>Senha</label>
+           <div>
+              <%= password_field_tag 'password', nil , :class => 'required' %>
+           </div>
+        </div>
+
+        <div class="actions-left">
+           <br/>
+           <%= 'Dica: [admin,admin].' if Usuario.count == 1 %>
+        </div>
+        <div class="actions-right">
+           <%= submit_tag 'Entrar' %>
+        </div>
+    </div>
+<% end -%>
+
+
+<!-- Uncomment this if you want this functionality
+<p><%#= label_tag 'remember_me', 'Remember me' %>
+<%#= check_box_tag 'remember_me', '1', @remember_me %></p>
+-->
+<!--b>IMPORTANTE</b>- Para efetuar o cadastro do cartório clique <b><%#= link_to 'aqui', :controller => 'dados_cartorarios', :action => 'new' %></b-->
+
+
+
+
+
+

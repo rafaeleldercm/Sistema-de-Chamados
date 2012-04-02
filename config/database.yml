@@ -1,0 +1,16 @@
+development:
+  adapter: postgresql
+  database: ticket_novo
+  username: ticket
+  password: ticket*&098
+  host: 192.168.0.14
+  port: 5432
+
+production:
+  adapter: postgresql
+  database: ticket_novo
+  username: ticket
+  password: ticket*&098
+  host: 192.168.0.14
+  port: 5432
+
