@@ -68,10 +68,12 @@ class ChamadosController < ApplicationController
 
   def encaminhar
      @chamado    = Chamado.find(params[:id])
-     @grupos     = @chamado.sistema.grupos_atendimento.collect { |g| [g.nome, g.id] }
+     @grupos  = @chamado.sistema.grupos_atendimento.collect { |g| [g.nome, g.id] }
      @atendentes = []
-     @chamado.grupo.usuarios.each do |u|
-        @atendentes << [u.name, u.id]   unless @atendentes.include? u
+     if @chamado.grupo.usuarios.include? @current_usuario
+        @chamado.grupo.usuarios.each do |u|
+           @atendentes << [u.name, u.id]   unless @atendentes.include? u
+        end
      end
   end
 
